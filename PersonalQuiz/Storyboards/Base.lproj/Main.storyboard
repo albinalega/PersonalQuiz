@@ -262,13 +262,7 @@
                             <constraint firstItem="pNj-4Q-frC" firstAttribute="top" secondItem="YQA-T2-Kxq" secondAttribute="top" id="xag-x3-EcM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Вопрос №" id="FhD-XM-LNJ">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="xHK-AX-1Gm">
-                            <connections>
-                                <segue destination="8wt-IJ-1P4" kind="show" id="yg2-0K-Z50"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Вопрос №" id="FhD-XM-LNJ"/>
                     <connections>
                         <outlet property="multipleStackView" destination="WdD-6k-ona" id="ZkB-Md-D2m"/>
                         <outlet property="questionLabel" destination="lPz-7l-v5M" id="aIH-bx-Eb7"/>
@@ -314,7 +308,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы - пингвин!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te2-OQ-Mlw">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вы - пингвин!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="te2-OQ-Mlw">
                                         <rect key="frame" x="89.5" y="68" width="109.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -366,9 +360,6 @@
             <point key="canvasLocation" x="774" y="78"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="uvK-B7-4Xm"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

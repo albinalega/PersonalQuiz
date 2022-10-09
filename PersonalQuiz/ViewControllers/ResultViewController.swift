@@ -11,20 +11,63 @@ class ResultViewController: UIViewController {
     @IBOutlet var animalYouAreLabel: UILabel!
     @IBOutlet var discriptionLabel: UILabel!
     
-    var animalEmoji = ""
     var chosenAnswers: [Answer] = []
+    private var dogsCount = 0
+    private var catsCount = 0
+    private var rabbitCount = 0
+    private var turtleCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
-        
-        animalYouAreLabel.text = "Вы - \(animalEmoji)"
-        
-
+        countEachAnimalAmount()
+        findTheMostPopularAnimal()
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         navigationController?.dismiss(animated: true)
+    }
+    
+    private func countEachAnimalAmount() {
+        for answer in chosenAnswers {
+            
+            if answer.animal == .dog {
+                dogsCount += 1
+            } else if answer.animal == .cat {
+                catsCount += 1
+            } else if answer.animal == .rabbit {
+                rabbitCount += 1
+            } else {
+                turtleCount += 1
+            }
+        }
+    }
+    
+    private func findTheMostPopularAnimal() {
+        if dogsCount >= 2 {
+            let youAreDog = Animal(rawValue: "🐶")
+
+            animalYouAreLabel.text = "Вы - \(youAreDog?.rawValue ?? "a")!"
+            discriptionLabel.text = youAreDog?.definition
+            
+        } else if catsCount >= 2 {
+            let youAreCat = Animal(rawValue: "🐱")
+            
+            animalYouAreLabel.text = "Вы - \(youAreCat?.rawValue ?? "a")!"
+            discriptionLabel.text = youAreCat?.definition
+            
+        } else if rabbitCount >= 2 {
+            let youAreRabbit = Animal(rawValue: "🐰")
+            
+            animalYouAreLabel.text = "Вы - \(youAreRabbit?.rawValue ?? "a")!"
+            discriptionLabel.text = youAreRabbit?.definition
+            
+        } else {
+            let youAreTurtle = Animal(rawValue: "🐢")
+            
+            animalYouAreLabel.text = "Вы - \(youAreTurtle?.rawValue ?? "a")!"
+            discriptionLabel.text = youAreTurtle?.definition
+        }
     }
 
 }
