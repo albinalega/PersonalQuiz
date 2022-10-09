@@ -21,7 +21,7 @@ class QuestionsViewController: UIViewController {
     @IBOutlet var multipleSwitches: [UISwitch]!
     
     @IBOutlet var rangedStackView: UIStackView!
-    @IBOutlet var rangedSlider: UISlider! { // как вы эту строчку так лихо перенесли???
+    @IBOutlet var rangedSlider: UISlider! { 
         didSet {
             let answerCount = Float(currentAnswers.count - 1)
             rangedSlider.maximumValue = answerCount
@@ -138,13 +138,13 @@ extension QuestionsViewController {
         questionIndex += 1
         
         if questionIndex < questions.count {
+            
             updateUI()
             return
         }
         
         performSegue(withIdentifier: "showResult", sender: nil)
     }
-    
 }
 
 
