@@ -8,15 +8,19 @@
 import UIKit
 
 class ResultViewController: UIViewController {
+    
+    // MARK: IBOutlets
     @IBOutlet var animalYouAreLabel: UILabel!
     @IBOutlet var discriptionLabel: UILabel!
     
+    // MARK: properties
     var chosenAnswers: [Answer] = []
     private var dogsCount = 0
     private var catsCount = 0
     private var rabbitCount = 0
     private var turtleCount = 0
     
+    // MARK: override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -24,10 +28,12 @@ class ResultViewController: UIViewController {
         findTheMostPopularAnimal()
     }
     
+    // MARK: IBActions
     @IBAction func doneButtonPressed(_ sender: Any) {
         navigationController?.dismiss(animated: true)
     }
     
+    // MARK: Private methods
     private func countEachAnimalAmount() {
         for answer in chosenAnswers {
             
