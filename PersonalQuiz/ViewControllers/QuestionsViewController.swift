@@ -9,6 +9,7 @@ import UIKit
 
 class QuestionsViewController: UIViewController {
     
+    // MARK: IBOutlets
     @IBOutlet var questionProgressView: UIProgressView!
     @IBOutlet var questionLabel: UILabel!
     
@@ -20,7 +21,7 @@ class QuestionsViewController: UIViewController {
     @IBOutlet var multipleSwitches: [UISwitch]!
     
     @IBOutlet var rangedStackView: UIStackView!
-    @IBOutlet var rangedSlider: UISlider! {
+    @IBOutlet var rangedSlider: UISlider! { // как вы эту строчку так лихо перенесли???
         didSet {
             let answerCount = Float(currentAnswers.count - 1)
             rangedSlider.maximumValue = answerCount
@@ -29,6 +30,7 @@ class QuestionsViewController: UIViewController {
     }
     @IBOutlet var rangedLabels: [UILabel]!
     
+    // MARK: Private properties
     private let questions = Question.getQuestions()
     private var answersChosen: [Answer] = []
     private var questionIndex = 0
@@ -36,11 +38,19 @@ class QuestionsViewController: UIViewController {
         questions[questionIndex].answers
     }
 
+    // MARK: Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let resultVC = segue.destination as? ResultViewController else { return }
+        resultVC.chosenAnswers = answersChosen
     }
 
+    // MARK: IBActions
     @IBAction func singleAnswerButtonPressed(_ sender: UIButton) {
         guard let buttonIndex = singleButtons.firstIndex(of: sender) else { return }
         let currentAnswer = currentAnswers[buttonIndex]
@@ -134,4 +144,8 @@ extension QuestionsViewController {
         
         performSegue(withIdentifier: "showResult", sender: nil)
     }
+    
+    
 }
+
+

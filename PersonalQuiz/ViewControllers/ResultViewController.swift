@@ -8,11 +8,19 @@
 import UIKit
 
 class ResultViewController: UIViewController {
-
+    @IBOutlet var animalYouAreLabel: UILabel!
+    @IBOutlet var discriptionLabel: UILabel!
+    
+    var animalEmoji = ""
+    var chosenAnswers: [Answer] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        animalYouAreLabel.text = "Вы - \(animalEmoji)"
+        
 
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func doneButtonPressed(_ sender: Any) {
