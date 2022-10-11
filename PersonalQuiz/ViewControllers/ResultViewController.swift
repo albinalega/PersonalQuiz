@@ -14,18 +14,12 @@ class ResultViewController: UIViewController {
     @IBOutlet var discriptionLabel: UILabel!
     
     // MARK: properties
-    var chosenAnswers: [Answer] = []
-    private var dogsCount = 0
-    private var catsCount = 0
-    private var rabbitCount = 0
-    private var turtleCount = 0
+    var chosenAnswers: [Answer] = [] // Если нельзя присвоить значение по умолчанию, то ставим "!" вместо "= []"
     
     // MARK: override methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        countEachAnimalAmount()
-        findTheMostPopularAnimal()
+        navigationItem.hidesBackButton = true
     }
     
     // MARK: IBActions
@@ -33,47 +27,39 @@ class ResultViewController: UIViewController {
         navigationController?.dismiss(animated: true)
     }
     
-    // MARK: Private methods
-    private func countEachAnimalAmount() {
-        for answer in chosenAnswers {
-            
-            if answer.animal == .dog {
-                dogsCount += 1
-            } else if answer.animal == .cat {
-                catsCount += 1
-            } else if answer.animal == .rabbit {
-                rabbitCount += 1
+}
+
+extension ResultViewController {
+    private func updateResult() {
+        var frequencyOfAnimals: [Animal: Int] = [:]
+        let animals = chosenAnswers.map { $0.animal } // наполняем массив animals животными из массива chosenAnswers (перебираем и возвращаем новый массив)
+        
+        for animal in animals {
+            if let animalTypeCount = frequencyOfAnimals[animal] { // если у нас есть такое животное, то
+                frequencyOfAnimals.updateValue(animalTypeCount + 1, forKey: animal) // прибавляем к ключу 1
             } else {
-                turtleCount += 1
+                frequencyOfAnimals[animal] = 1 // если такого животного нет, прибавляем 1
             }
         }
+        
+//          ВТОРОЙ ВАРИАНТ:
+//        for animal in animals {
+//            frequencyOfAnimals[animal] = (frequencyOfAnimals[animal] ?? 0) + 1
+//        } // мне кажется, он понятней, но Алексей не согласен
+        
+//          ТРЕТИЙ ВАРИАНТ:
+//        for animal in animals {
+//            frequencyOfAnimals[animal, default: 0] += 1
+//        } 
+        
+        let sortedFrequencyOfAnimals = frequencyOfAnimals.sorted { $0.value > $1.value } // сравниваем значения словаря
+        guard let mostFrequentAnimal = sortedFrequencyOfAnimals.first?.key else { return } // берем первое значение (оно самое большое)
+        
+        updateUI(with: mostFrequentAnimal)
     }
     
-    private func findTheMostPopularAnimal() {
-        if dogsCount >= 2 {
-            let youAreDog = Animal(rawValue: "🐶")
-
-            animalYouAreLabel.text = "Вы - \(youAreDog?.rawValue ?? "a")!"
-            discriptionLabel.text = youAreDog?.definition
-            
-        } else if catsCount >= 2 {
-            let youAreCat = Animal(rawValue: "🐱")
-            
-            animalYouAreLabel.text = "Вы - \(youAreCat?.rawValue ?? "a")!"
-            discriptionLabel.text = youAreCat?.definition
-            
-        } else if rabbitCount >= 2 {
-            let youAreRabbit = Animal(rawValue: "🐰")
-            
-            animalYouAreLabel.text = "Вы - \(youAreRabbit?.rawValue ?? "a")!"
-            discriptionLabel.text = youAreRabbit?.definition
-            
-        } else {
-            let youAreTurtle = Animal(rawValue: "🐢")
-            
-            animalYouAreLabel.text = "Вы - \(youAreTurtle?.rawValue ?? "a")!"
-            discriptionLabel.text = youAreTurtle?.definition
-        }
+    private func updateUI(with animal: Animal) {
+        animalYouAreLabel.text = "Вы - \(animal.rawValue)!"
+        discriptionLabel.text = animal.definition
     }
-
 }
